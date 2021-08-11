@@ -1,8 +1,10 @@
 # cord-pipeline-samples
 
-Please refer to [Cord Help](https://help.cord.tools/cord/Cord-Pipes-User-Documentation.1657209225.html) for further details and complete documentations.
-
 This repository contains example files for the different features and use cases of the cord tools pipelines.
+
+Please refer to [Cord Help](https://help.cord.tools/cord/Cord-Pipes-User-Documentation.1657209225.html) for further details and complete documentation.
+
+## cord.yml
 
 The configuration file within your repository could be named:
 
