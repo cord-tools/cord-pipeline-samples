@@ -1,0 +1,27 @@
+# we have migrated aemcloud to cord tools
+# this aemcloud.yml will no longer be supported
+# migrate to use pipelines instead
+---
+version: v2
+environments:
+  - name: config1
+    env:
+      - name: CQ_RUNMODE
+        value: test
+    author: true
+    publish: 0
+    dispatcher: false
+    aem_version: 6.5.0
+    sample_content: true
+    packages:
+      - packages/fastly-connector-app-0.5.0.zip
+build:
+  sync_root: app/
+  sync_on_start: true 
+  image: maven:3.5-jdk-8
+  script:
+    - mvn package -DskipTests=true
+  artifact_path: 
+    - app/target
+  cache_configs:
+    - path: test/fixtures/dispatcher

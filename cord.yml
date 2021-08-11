@@ -1,0 +1,35 @@
+---
+# current supported version
+version: "v2"
+# environment configuration
+# this settings are used by the CLI and for spinning on demand environments
+environments:
+  - name: config1
+    author: true
+    publish: true
+    aem_version: 6.4.0
+    sample_content: true
+    packages:
+      - repos/hoodoo-digital%20%2F%20aem.cloud%20%2F%20ustudio-connector/best-feature-ever/builds/a8852669-68a2-4969-a371-9e8e868492e0/ustudio-connector-app-1.0.0-SNAPSHOT.zip
+      - packages/6.4-workfront-connector-1.7.2.zip
+
+# multi steps (stages) pipeline
+pipeline:
+  # step build
+  - name: build
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content
+  # step test
+  - name: test
+    image: node10
+    script:
+      - cd e2e
+      - npm install
+      - npm run test
+  # step deploy
+  - name: deploy
+    ...

@@ -1,0 +1,17 @@
+# cache will allow you to speed up pipelines, by re-using dependencies
+# cache will be shared across pipelines and steps
+---
+version: "v2"
+environments:
+  - name: config1
+    ...
+
+pipeline:
+  # use cache
+  - name: using-cache-upload
+    cache:
+      - key: maven_deps
+        path: ~/.m2
+    image: 'maven:3.6-jdk-11'
+    script:
+      - mvn package

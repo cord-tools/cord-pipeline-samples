@@ -1,0 +1,21 @@
+# Easy deploy your code and content to an existing environment
+# Note: Recommended to use branch filtering to deploy only production ready code
+---
+version: v2
+pipeline:
+  # step the build the project 
+  - name: build
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content
+  # pipe (step) that deploy the packages from other steps into an existing environment
+  - name: deploy packages
+    pipe:
+      name: cord/deploy
+      config:
+        environment: my-production-environment
+        packages: [my-package-to-deploy.zip]
+  # note that the if packages is not specific, the pipe will deploy all the built packages

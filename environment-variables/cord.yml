@@ -1,0 +1,17 @@
+# environment variables will allow to parameterize your scripts
+# Note: Account secrets are also available during executions
+---
+version: "v2"
+environments:
+  - name: config1
+    ...
+
+pipeline:
+  # use cache
+  - name: using-cache-upload
+    env:
+      - name: FOO
+        value: bar
+    image: 'maven:3.6-jdk-11'
+    script:
+      - echo ${FOO}

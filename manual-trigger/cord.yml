@@ -1,0 +1,27 @@
+# a step can be paused before it starts executing by using the `trigger: manual` flag
+# a manual step won't be executed unless automatically
+# by default steps will be executed one after the other
+---
+version: "v2"
+environments:
+  - name: config1
+    ...
+
+pipeline:
+  # step build
+  - name: build
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content
+  # step test
+  - name: test
+    # the step should be triggered manually
+    trigger: manual  
+    image: node10
+    script:
+      - cd e2e
+      - npm install
+      - npm run test

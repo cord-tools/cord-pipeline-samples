@@ -1,0 +1,41 @@
+# You can filter the pipelines to run only for specific branches of your code
+# if not specified the pipeline will run on all the branches
+# same logic applies for step within the pipeline
+---
+version: "v2"
+# branch filtering
+branches:
+  only:
+    - master
+    - develop
+  exclude:
+    - feature/*
+
+environments:
+  - name: config1
+    ...
+
+# pipelines
+pipeline:
+  - name: build
+    # run for all 
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content
+  - name: test
+    # run only for master and develop
+    branches:
+    only:
+      - master
+      - develop
+    exclude:
+      - feature/*
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content

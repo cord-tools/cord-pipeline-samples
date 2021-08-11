@@ -1,0 +1,40 @@
+# On demand environments are useful to execute programmatic checks during a pipeline execution
+# use cases can be: run e2e tests, run load tests, execute security scans
+---
+version: v2
+environments:
+  - name: on-demand-environment-to-sping
+    author: true
+    publish: true
+    aem_version: 6.4.0
+    sample_content: true
+    packages:
+      - repos/hoodoo-digital%20%2F%20aem.cloud%20%2F%20ustudio-connector/best-feature-ever/builds/a8852669-68a2-4969-a371-9e8e868492e0/ustudio-connector-app-1.0.0-SNAPSHOT.zip
+      - packages/6.4-workfront-connector-1.7.2.zip
+pipeline:
+  # step the build the project 
+  - name: build
+    image: maven:3.5-jdk-8
+    script:
+      - mvn package -DskipTests=true
+    artifact_path: 
+      - app/target
+    sync_root: app/src/main/content
+  # pipe (step) that creates the ondemandEnvironment using the environment settings.
+  # once an environment is up the following environment variables 
+  # will be accessible on the next steps:
+  # AEM_AUTHOR_URL: for author
+  # AEM_PUBLISH_URL: for publish
+  - name: start environment
+    pipe:
+      name: cord/start-environment
+      config:
+        environment: on-demand-environment-to-sping
+  # use further steps to validate agains the on demand environment
+  - name: test
+    trigger: manual
+    image: node10
+    script:
+      - cd e2e
+      - npm install
+      - npm run test
