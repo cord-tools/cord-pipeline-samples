@@ -1,24 +1,24 @@
 # cord-pipeline-samples
 
-This repository contains example files for the different features and use cases of the cord tools pipelines.
+This repository contains example files for the different features and use cases of Cord Tools Pipelines.
 
 Please refer to [Cord Help](https://help.cord.tools/cord/Cord-Pipes-User-Documentation.1657209225.html) for further details and complete documentation.
 
 ## cord.yml
 
-The configuration file within your repository could be named:
+Cord Tools Pipelines requires a configuration file at the root of your repository. It will search for a file with one of the following names, stopping at the first file found.
 
-* cord.yml
-* cord.yaml
-* aemcloud.yml (soon to be deprecated)
-* aemccloud.yaml (soon to be deprecated)
+1. cord.yml
+2. cord.yaml
+3. aemcloud.yml (deprecated)
+4. aemccloud.yaml (deprecated)
 
-Basic example could be find in [cord.yml](cord.yml)
+You can find examples of both [cord.yml](cord.yml) and the [deprecated aemcloud.yml](deprecated/aemcloud.yml) in this repository for reference.
 
 
 ## Features
 
-Cord Pipelines offer a set of features that will enhance your CI experience by allowing you to control how and when pipelines are executed.
+Cord Pipelines offers a set of features that will enhance your CI/CD experience by allowing you to control how and when pipelines are executed.
 
 * [Branch Filtering](branch-filtering/cord.yml)
 * [Manual Triggering](manual-trigger/cord.yml)
@@ -28,13 +28,11 @@ Cord Pipelines offer a set of features that will enhance your CI experience by a
 
 ## Pipes
 
-Pipes are builtin out of the box steps that will boost your pipelines with minimum configuration. Allowing users to take advantage of some of the features included in Cord Tools, such as: On Demand Environments, automated deploys, ...
+Pipes are out-of-the-box steps which will boost the effectiveness of your pipelines with minimal configuration. You can use these built-in steps to leverage other features included in Cord Tools, such as: On Demand Environments, automated deploys, and more.
 
 * [On demand environments](pipes/on-demand-environment/cord.yml)
 * [Automated deploys](pipes/deploy/cord.yml)
 
-## Migrate for the old build
+## Changes from previous releases
 
-We initially supported a single `build` step that was used to build, test and deploy your code. On the new cord tools, we are migrating away from that and instead allowing users to have multi-steps (multi-stage) pipelines that provide more visibility and control over the CI/CD process.
-
-* [Decrecated config](deprecated/aemcloud.yml) 
+Previous iterations of this toolchain supported a single `build` step that was used to build, test and deploy code. We are migrating away from that to allow users to use multi-step/multi-stage pipelines that provide more flexibility, visibility and control over their paritcular CI/CD processes.
